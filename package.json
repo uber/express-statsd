@@ -1,0 +1,48 @@
+{
+  "name": "express-statsd",
+  "description": "Statsd route monitoring middleware for connect/express",
+  "version": "0.1.0",
+  "homepage": "https://github.com/uber/express-statsd",
+  "author": {
+    "name": "Matt Morgan",
+    "email": "matt@mlmorg.com",
+    "url": "http://mlmorg.com"
+  },
+  "keywords": [
+    "connect",
+    "express",
+    "statsd",
+    "lynx",
+    "monitoring"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/uber/express-statsd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uber/express-statsd/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/uber/express-statsd/blob/master/LICENSE"
+    }
+  ],
+  "main": "lib/express-statsd",
+  "dependencies": {
+    "lynx": "~0.0.11",
+    "obj-extend": "~0.1.0"
+  },
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "express": "~3.4.7",
+    "grunt": "~0.4.2",
+    "grunt-cli": "~0.1.11",
+    "grunt-contrib-jshint": "~0.7.2",
+    "mocha": "~1.15.1",
+    "request": "~2.29.0"
+  },
+  "scripts": {
+    "test": "grunt && mocha -R spec"
+  }
+}
