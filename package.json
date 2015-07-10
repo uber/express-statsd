@@ -2,25 +2,10 @@
   "name": "express-statsd",
   "description": "Statsd route monitoring middleware for connect/express",
   "version": "0.3.0",
-  "homepage": "https://github.com/uber/express-statsd",
-  "author": {
-    "name": "Matt Morgan",
-    "email": "matt@mlmorg.com",
-    "url": "http://mlmorg.com"
-  },
-  "keywords": [
-    "connect",
-    "express",
-    "statsd",
-    "lynx",
-    "monitoring"
-  ],
+  "homepage": "https://github.com/boomtrain/express-statsd",
   "repository": {
     "type": "git",
-    "url": "git://github.com/uber/express-statsd.git"
-  },
-  "bugs": {
-    "url": "https://github.com/uber/express-statsd/issues"
+    "url": "git://github.com/boomtrain/express-statsd.git"
   },
   "licenses": [
     {
