@@ -42,7 +42,17 @@ response_time:100|ms
 
 ### Per route example
 
-However, it's **highly recommended** that you set `req.statsdKey` which
+The default behavior reports statsd metrics based on the top-level URI.
+For example:
+```
+https://www.domain.com/ --> root_GET.status_code.200:1|c
+https://www.domain.com/ --> root_GET.response_time.100|ms
+
+https://www.domain.com/something --> something_GET.status_code.200:1|c
+https://www.domain.com/something --> something_GET.response_time.100|ms
+```
+
+However, if you want to override this behavior you can set `req.statsdKey` which
 will be used to namespace the stats. Be aware that stats will only be logged
 once a response has been sent; this means that `req.statsdKey` can be
 set even after the express-statsd middleware was added to the chain. Here's an 

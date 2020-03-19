@@ -27,16 +27,31 @@ describe('An express server', function () {
       });
 
       it('should send status_code stat', function () {
-        expect(this.messages[0]).to.match(/status_code\.200:\d\|c/);
+        expect(this.messages[0]).to.match(/root_GET.status_code\.200:\d\|c/);
       });
 
       it('should send response_time stat', function () {
-        expect(this.messages[1]).to.match(/response_time:\d\|ms/);
+        expect(this.messages[1]).to.match(/root_GET.response_time:\d\|ms/);
       });
 
       it('should send stats with no key', function () {
-        expect(this.messages[0]).to.match(/^status_code\.200:\d\|c$/);
-        expect(this.messages[1]).to.match(/^response_time:\d|ms$/);
+        expect(this.messages[0]).to.match(/^root_GET.status_code\.200:\d\|c$/);
+        expect(this.messages[1]).to.match(/^root_GET.response_time:\d|ms$/);
+      });
+    });
+
+    describe('receiving a request to /ninja', function () {
+      utils.runServer(1337, [
+        expressStatsd(),
+        function (req, res) {
+          res.send(200);
+        }
+      ]);
+      utils.saveRequest('http://localhost:1337/ninja');
+      utils.getStatsdMessages();
+
+      it('should send ninja_get.response_time stat', function () {
+        expect(this.messages[1]).to.match(/ninja_GET.response_time:\d\|ms/);
       });
     });
 
