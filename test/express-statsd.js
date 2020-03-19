@@ -99,6 +99,34 @@ describe('An express server', function () {
       });
     });
 
+    describe('with a custom sendStats function', function () {
+      utils.runServer(1337, [
+        expressStatsd({
+          sendStats: function (req, res, client, startTime, options) {
+            var statusCode = res.statusCode;
+            client.increment('node_test.int.' + statusCode);
+            client.decrement('node_test.int.fail');
+            client.timing('node_test.some_service.task.time', 500);
+            client.gauge('gauge.one', 100);
+            client.set('set.one', 10);
+          }
+        }),
+        function (req, res) {
+          res.send(200);
+        }
+      ]);
+      utils.saveRequest('http://localhost:1337');
+      utils.getStatsdMessages();
+
+      it('should read from that key', function () {
+        expect(this.messages[0]).to.match(/^node_test\.int\.200:\d\|c$/);
+        expect(this.messages[1]).to.match(/^node_test\.int\.fail:-1\|c$/);
+        expect(this.messages[2]).to.match(/^node_test\.some_service\.task\.time:\d|ms$/);
+        expect(this.messages[3]).to.match(/^gauge\.one:100|g$/);
+        expect(this.messages[4]).to.match(/^set\.one:10|s$/);
+      });
+    });
+
     describe('receiving a request with a custom lynx', function () {
       utils.runServer(1337, [
         function (req, res, next) {
